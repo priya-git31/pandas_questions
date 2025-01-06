@@ -40,8 +40,6 @@ df.iloc[2:5,3:7]
 # Non-Sequential Rows and Columns
 # Use iloc to access rows at index 0, 2, and 4, and columns 1, 3, and 5.
 df.iloc[[0,2,4],[1,2,5]]
-
-
 # Counting - Count 
 df.head(5)
 # 1. Using count()
@@ -62,9 +60,7 @@ df['quality'].value_counts()
 df.loc[0:4,'alcohol'].value_counts()
 df['pH'].value_counts().max()
 df.head()
-
-
-#NULL HANDLING 
+#Null Handling 
 # sna() and isnull() : 
 
 # Question 1: Using isna() or isnull(), find out how many missing values are in each column of wine_df?
@@ -94,7 +90,6 @@ wine_df = wine_df.fillna(value=fill_dict).fillna(wine_df.mean())
 #  Question 6: How many complete cases (rows with no missing values) are there in the dataset?
 complete_cases = df.notnull().all(axis=1).sum()
 print(complete_cases)
-
 # Question 8: Remove all rows that have any missing values.
 
 # Question 9: Remove only the rows where 'quality' is missing.
@@ -102,3 +97,27 @@ print(complete_cases)
 
 df.dropna()
 df.dropna(subset=['quality'])
+# Question 1: What are all the unique values in the 'quality' column, including NULL values?
+# Expected output should show: [5, 6, None]
+
+# Question 2: How many unique fixed_acidity values are there (including NULL)?
+# Hint: Use len() with unique()
+
+# Question 3: Create a list of all unique alcohol percentages sorted in ascending order.
+# Hint: Combine unique() with sort()
+df['quality'].unique()
+len(df['fixed acidity'].unique())
+sorted(df['alcohol'].unique())
+# nunique() Practice:
+#  Question 4: How many unique values are there in each column, excluding NULL values?
+# Hint: Use nunique() on the entire DataFrame
+
+# Question 5: Which column has the most unique values (excluding NULL)?
+# Hint: Use nunique() and idxmax()
+
+# Question 6: Compare the difference between unique() and nunique() for the 'rating' column.
+# What's different about their outputs?
+df.nunique()
+df.nunique().idxmax()
+difference = df['alcohol'].unique() - df['alcohol'].nunique()
+print(difference)
