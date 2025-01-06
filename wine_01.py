@@ -121,3 +121,37 @@ df.nunique()
 df.nunique().idxmax()
 difference = df['alcohol'].unique() - df['alcohol'].nunique()
 print(difference)
+df.head()
+#Duplicates 
+# Identify Duplicate Rows in a DataFrame:
+# Use the duplicated() function to find all duplicate rows in the dataframe, considering all columns. 
+#(Display the rows that are duplicates.)
+df.duplicated()
+#Drop Functions
+# Drop Rows or Columns:
+# a) Drop the row with index 2 from the dataset.
+
+# b) Drop the column 'quality' from the dataset.
+
+df.drop(2, axis = 0, inplace=False)
+df.drop('quality', axis =1, inplace=False)
+# 2. Value Checking with isin():
+# a) Create a list of ['7.8', '9.8'] and check if the values in the 'alcohol' column match any value in the list.
+
+# b) Check if the 'quality' column contains the values ['5', '6'].
+
+# c) Check if the alcohol column contains any of the following values: 7.4, 9.4, 10.0.
+
+
+df['alcohol'].isin([7.9,9.8])
+df['quality'].isin([5,6])
+df['alcohol'].isin([7.4,9.4,10.0])
+# Value Checking with between():
+# a) Check if the values in the 'alcohol' column are between 7.0 and 9.0 (inclusive).
+
+# b) Check if the values in the 'sulphates' column are between 0.5 and 1.0 (exclusive).
+
+# c) Check if the values in the 'citric acid' column are between 0.0 and 0.5 (inclusive
+df['alcohol'].between(7.0,9.0, inclusive='both')
+df['sulphates'].between(1.0, 5.0, inclusive='neither')
+df['citric acid'].between(0.0,0.5, inclusive='both')
