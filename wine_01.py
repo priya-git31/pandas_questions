@@ -155,3 +155,39 @@ df['alcohol'].isin([7.4,9.4,10.0])
 df['alcohol'].between(7.0,9.0, inclusive='both')
 df['sulphates'].between(1.0, 5.0, inclusive='neither')
 df['citric acid'].between(0.0,0.5, inclusive='both')
+# 1. Convert Data Types:
+# a) Convert the 'fixed acidity' column to integer type (e.g., int).
+# b) Convert the 'quality' column to category type, as it has a limited number of unique values.
+# c) Convert the 'alcohol' column to integer type (round off the decimal points).
+df['column_name'] = df['column_name'].astype(new_type)
+df['fixed acidity'] = df['fixed acidity'].astype(int)
+print(df.dtypes)
+df['quality'] = df['quality'].astype('category')
+print(df.dtypes)
+
+df['aclohol'] = df['alcohol'].astype(int)
+print(df.dtypes)
+#  Replace Specific Values:
+# a) Replace all occurrences of the value 0.00 in the 'citric acid' column with 0.1.
+# b) Replace the value 0.9978 in the 'density' column with 0.9985.
+# df.replace(['Jane', 'Jack'], ['Janet', 'Jackson'], inplace=True)
+
+df['citric acid'].replace([0.00, 0.01], inplace=False)
+
+df.head()
+df['citric acid'].replace(0.00,None)
+df['quality'].replace({5 : 'Low, 6 : High'})
+
+df[df['alcohol'] > 10]
+df['pH'].mean()
+df['quality'].unique()
+# Replace Specific Values
+# Replace all rows where quality equals 5 with Low Quality.
+# Replace all rows where quality equals 6 with High Quality
+df['quality'].replace({5 : 'Low Quality'})
+df['quality'].replace({6 : 'High Quality'})
+# Replace Values Based on Conditions
+# Replace all values in the alcohol column that are less than 10 with Below Average.
+# Replace all values in the pH column that are greater than 3.5 with High pH.
+df['pH'].replace(df['pH'] > 3.5)
+df['alcohol'].apply(lambda x : 'Below Average' if x < 10 else x )
