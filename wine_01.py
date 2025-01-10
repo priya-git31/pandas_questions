@@ -191,3 +191,40 @@ df['quality'].replace({6 : 'High Quality'})
 # Replace all values in the pH column that are greater than 3.5 with High pH.
 df['pH'].replace(df['pH'] > 3.5)
 df['alcohol'].apply(lambda x : 'Below Average' if x < 10 else x )
+df.dtypes
+df['fixed acidity'] = df['fixed acidity'].astype(int)
+df['fixed acidity'] = df['fixed acidity'].astype(float)
+df.dtypes
+df['alcohol'] = pd.to_numeric(df['alcohol'], errors='coerce')
+##Value Replacement 
+# Replace missing values in pH with the mean:
+df['pH'] = df['pH'].fillna(df['pH'].mean())
+# Replace missing values in pH with the sum:
+df['pH'] = df['pH'].fillna(df['pH'].sum())
+# Replace low-quality wines (quality < 5) with "Low" and others with "High"
+df['quality'] = df['quality'].apply(lambda x : 'Low' if x < 5 else 'High')
+df = df.rename(columns={'fixed acidity': 'fixed_acidity', 'volatile acidity' : 'volatile_acidity'})
+print(df)
+df = df.rename(columns={'fixed_acidity' : 'fixed acidity', 'volatile_acidity': 'volatile acidity'})
+print(df)
+#renaming 
+# Rename 'citric acid' to 'citric_acid' and 'residual sugar' to 'residual_sugar
+df = df.rename(columns={'citric acid' : 'citric_acid', 'residual sugar' : 'residual_sugar'})
+print(df)
+df = df.rename(columns={'citric_acid' : 'citric acid', 'residual_sugar' : 'residualsugar'})
+print(df)
+# Convert all column names to lowercase:
+df.columns = df.columns.str.lower()
+print(df.columns)
+# Replace spaces in column names with underscores (_):
+df.columns = df.columns.str.replace(" ", "_")
+print(df.columns)
+#Clipping 
+# Ensure all alcohol values are between 8 and 14.
+df['alcohol'] = df['alcohol'].clip(lower=8, upper=14)
+print(df['alcohol'])
+df.head()
+df['residualsugar'] = df['residualsugar'].clip(lower=2.0, upper=10.0)
+print(df[['residualsugar']].head())
+#Expansion 
+
