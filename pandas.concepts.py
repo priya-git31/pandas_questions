@@ -390,7 +390,70 @@ The melt() function reshapes a DataFrame from wide format (columns represent var
 
 
 # 28. How do you pivot a DataFrame to transform unique values of a column into column headers?
+# The pivot() function reshapes a DataFrame by turning unique values of one column into columns 
+# and reorganizing the data accordingly.
+
+# df.pivot(index, columns, values)
+# index: Column to use as the row index.
+# columns: Column whose unique values become new columns.
+# values: Column to populate the new table (optional).
+
+# data = {'Name': ['Alice', 'Alice', 'Bob'], 'Subject': ['Math', 'Science', 'Math'], 'Score': [90, 85, 80]}
+# df = pd.DataFrame(data)
+
+# # Before `pivot()`
+#     Name   Subject  Score
+# 0  Alice      Math     90
+# 1  Alice   Science     85
+# 2    Bob      Math     80
+
+# # After `pivot()`
+# # df_pivoted = df.pivot(index='Name', columns='Subject', values='Score')
+# # print(df_pivoted)
+
+# Subject  Math  Science
+# Name                  
+# Alice     90     85
+# Bob       80    NaN
+
+
+
 # 29. What is the use of `crosstab()` in Pandas?
+# The crosstab() function is used to compute a contingency table
+# (cross-tabulation) of two or more factors. It shows the frequency of combinations of values.
+
+# pd.crosstab(index, columns, values=None, aggfunc=None, margins=False, normalize=False)
+
+# index: Rows of the contingency table.
+# columns: Columns of the contingency table.
+# values: Optional values to aggregate.
+# aggfunc: Aggregation function (e.g., 'sum', 'mean').
+# margins: Add totals (default is False).
+# normalize: Normalize values (e.g., 'all', 'index', 'columns').
+
+# data = {'Name': ['Alice', 'Alice', 'Bob', 'Bob'], 
+#         'Subject': ['Math', 'Science', 'Math', 'Science'], 
+#         'Score': [90, 85, 80, 95]}
+# df = pd.DataFrame(data)
+
+# # Before `crosstab()`
+# print(df)
+
+#     Name   Subject  Score
+# 0  Alice      Math     90
+# 1  Alice   Science     85
+# 2    Bob      Math     80
+# 3    Bob   Science     95
+
+# # After `crosstab()`
+# crosstab = pd.crosstab(df['Name'], df['Subject'], values=df['Score'], aggfunc='mean')
+# print(crosstab)
+
+# Subject  Math  Science
+# Name                  
+# Alice     90     85
+# Bob       80     95
+
 
 # DATA EXPANSION
 # 30. How can you use the `expanding()` function in Pandas for cumulative operations?
