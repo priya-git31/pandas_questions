@@ -337,7 +337,58 @@ The melt() function reshapes a DataFrame from wide format (columns represent var
 # It doesn't matter how many additional columns are in the DataFrame. As long as they are not listed in id_vars, they will be melted
 
 # 26. How do you stack the columns of a DataFrame into rows using Pandas?
+
+# The stack() function stacks the columns of a DataFrame into a multi-indexed Series. 
+# It moves the column labels to the row index.
+
+# df.stack(level=-1, dropna=True)
+# level: The column level to stack (default is -1, the innermost level).
+# dropna: Whether to drop missing values (default is True).
+
+# data = {'Math': [90, 80], 'Science': [85, 95]}
+# df = pd.DataFrame(data, index=['Alice', 'Bob'])
+
+#        Math  Science
+# Alice    90       85
+# Bob      80       95
+
+# df_stacked = df.stack()
+# Alice  Math        90
+#        Science     85
+# Bob    Math        80
+#        Science     95
+
+
 # 27. What does the `unstack()` function do in Pandas?
+# The unstack() function reshapes a DataFrame or
+# Series by moving the innermost row index level to the column level.
+
+# df.unstack(level=-1, fill_value=None)
+# level: The row level to unstack (default is -1, the innermost level).
+# fill_value: Value to fill missing data (default is None).
+
+# data = {'Math': [90, 80], 'Science': [85, 95]}
+# df = pd.DataFrame(data, index=['Alice', 'Bob']).stack()
+
+# # Before `unstack()`
+# print(df)
+
+# Alice  Math        90
+#        Science     85
+# Bob    Math        80
+#        Science     95
+# dtype: int64
+
+# After `unstack()`
+# df_unstacked = df.unstack()
+# print(df_unstacked)
+
+#        Math  Science
+# Alice    90       85
+# Bob      80       95
+
+
+
 # 28. How do you pivot a DataFrame to transform unique values of a column into column headers?
 # 29. What is the use of `crosstab()` in Pandas?
 
