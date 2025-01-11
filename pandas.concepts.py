@@ -63,7 +63,33 @@
 
 # NULL Handling
 # 7. How do you check for missing values in a Pandas DataFrame using `isna()` or `isnull()`?
-# 8. What function do you use to replace missing values in Pandas?
-# 9. How can you drop rows with missing values from a DataFrame using Pandas?
-# 10. How do you find non-null values in a DataFrame using `notnull()`?
+# The isna() (or its alias isnull()) function is used to check for missing (NaN/None) values in a Pandas DataFrame or Series.
+# It returns a DataFrame/Series of the same shape, with True for missing values and False for non-missing values.
+# df.isna()  # or df.isnull()
 
+
+
+# 8. What function do you use to replace missing values in Pandas?
+# The fillna() function is used to replace missing (NaN/None) values in a DataFrame or Series with a specified value or method.
+
+# df.fillna(value, method=None, axis=None, inplace=False)
+
+# value: The value to replace missing values with.
+# method: Options are 'ffill' (forward fill) or 'bfill' (backward fill).
+# inplace: If True, modifies the DataFrame in place.
+
+
+# 9. How can you drop rows with missing values from a DataFrame using Pandas?
+# The dropna() function removes rows (or columns) with missing values from a DataFrame.
+
+# df.dropna(axis=0, how='any', inplace=False)
+# axis=0: Drops rows (default).
+# axis=1: Drops columns.
+# how='any': Drops rows/columns if any value is missing.
+# how='all': Drops rows/columns only if all values are missing.
+
+# 10. How do you find non-null values in a DataFrame using `notnull()`?
+# The notnull() function is used to check for non-missing (non-NaN) values in a DataFrame or Series.
+#  It returns a DataFrame/Series of the same shape, with True for non-null values and False for null values
+
+# df.notnull()
