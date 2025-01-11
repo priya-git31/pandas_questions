@@ -175,3 +175,172 @@
 # 'right': Include only the upper bound.
 
 
+# TYPE CONVERSION
+# 18. How do you change the data type of a column in Pandas using `astype()`?
+# The astype() function is used to change the data type of a column in Pandas. 
+# It allows you to convert a column to types like int, float, str, or even category.
+
+# df['column_name'] = df['column_name'].astype('desired_type')
+
+
+# VALUE REPLACEMENT 
+# 19. What function in Pandas can you use to replace specific values in a DataFrame?
+
+# The replace() function is used to replace specific values in a DataFrame or Series. 
+# You can replace single values, lists, or even use regular expressions.
+
+# df.replace(to_replace, value, inplace=False)
+# to_replace: The value(s) to be replaced.
+# value: The new value(s) to replace with.
+# inplace: If True, modifies the DataFrame in place.
+
+# RENAMING
+# 20. How do you rename columns or index labels in a Pandas DataFrame using `rename()`?
+# The rename() function allows you to rename columns or 
+# index labels in a DataFrame by providing a mapping of old names to new names.
+
+
+# df.rename(columns={'old_column': 'new_column'}, index={'old_index': 'new_index'}, inplace=False)
+
+# CLIPPING
+# 21. How can you clip values in a DataFrame or Series to within a specified range using `clip()`?
+# The clip() function restricts values in a DataFrame or Series to fall within a specified range.
+# Any values outside the range are replaced by the boundary values.
+
+# df.clip(lower=None, upper=None, inplace=False)
+
+# lower: The minimum value.
+# upper: The maximum value.
+# inplace: If True, modifies the DataFrame in place.
+
+# EXPANSION
+# 22. How do you transform a list-like column of a DataFrame into separate rows using `explode()`?
+
+# The explode() function transforms a list-like column in a DataFrame into separate rows.
+# Each element in the list becomes a new row, while the other columns are duplicated for these rows.
+
+# df.explode(column, ignore_index=False)
+# column: The name of the column to be exploded.
+# ignore_index: If True, resets the index of the resulting DataFrame (default is False).
+
+# import pandas as pd
+
+# data = {
+#     'Name': ['Alice', 'Bob'], 
+#     'Hobbies': [['Reading', 'Cycling'], ['Cooking', 'Swimming']]
+# }
+# df = pd.DataFrame(data)
+
+# print(df)
+#      Name                 Hobbies
+# 0   Alice     [Reading, Cycling]
+# 1     Bob   [Cooking, Swimming]
+
+#  After using explode
+#      Name      Hobbies
+# 0   Alice     Reading
+# 0   Alice     Cycling
+# 1     Bob     Cooking
+# 1     Bob     Swimming
+
+# What happened here?
+# Each element from the lists in the Hobbies column became a separate row.
+# The other column (Name) is repeated to match the new rows.
+
+
+
+# FLATTENING 
+# 23. What function can be used to flatten nested data in Pandas?
+
+# To flatten nested data, you can use json_normalize() (from pandas.json)
+# for JSON-like structures or manually process using apply(pd.Series) for specific columns.
+
+# Option 1: Using json_normalize()
+# This is useful for flattening JSON-like nested structures into a DataFrame.
+
+
+# from pandas import json_normalize
+# json_normalize(data, record_path=None, meta=None)
+# record_path: Path to the nested list/records to be flattened.
+# meta: Additional fields to extract.
+
+# Option 2: Using apply(pd.Series) for a single column
+# If a column contains dictionaries or lists, this flattens it.
+
+# data = {'A': [1, 2], 'B': [{'C': 3, 'D': 4}, {'C': 5, 'D': 6}]}
+# df = pd.DataFrame(data)
+
+# # Flatten column 'B'
+# df_flattened = pd.concat([df.drop(columns='B'), df['B'].apply(pd.Series)], axis=1)
+# print(df_flattened)
+# # Output:
+# #    A  C  D
+# # 0  1  3  4
+# # 1  2  5  6
+
+# data = {'A': [1, 2], 'B': [{'C': 3, 'D': 4}, {'C': 5, 'D': 6}]}
+# df = pd.DataFrame(data)
+
+# # Flatten column 'B'
+# df_flattened = pd.concat([df.drop(columns='B'), df['B'].apply(pd.Series)], axis=1)
+# print(df_flattened)
+# # Output:
+# #    A  C  D
+# # 0  1  3  4
+# # 1  2  5  6
+
+
+# INDEX RESETTING 
+# 24. How can you reset the index of a DataFrame using `reset_index()`?
+The melt() function reshapes a DataFrame from wide format (columns represent variables) to long format (rows represent variables)
+# The reset_index() function resets the index of a DataFrame. 
+# By default, the old index is added as a new column, and a new sequential index is created.
+
+# df.reset_index(drop=False, inplace=False)
+# drop: If True, the old index is not added as a column (default is False).
+# inplace: If True, modifies the DataFrame in place.
+
+
+# DATA RESHAPING 
+# 25. How do you reshape a DataFrame from wide to long format using `melt()`?
+# The melt() function reshapes a DataFrame from wide format (columns represent variables) to long format (rows represent variables)
+
+# pd.melt(df, id_vars, value_vars, var_name, value_name)
+# id_vars: Columns to keep fixed (identifier columns).
+# value_vars: Columns to "melt" into rows (optional).
+# var_name: Name for the melted variable column (optional).
+# value_name: Name for the melted value column (optional).
+    
+#     data = {'Name': ['Alice', 'Bob'], 'Math': [90, 80], 'Science': [85, 95]}
+# df = pd.DataFrame(data)
+
+#     Name  Math  Science
+# 0  Alice    90       85
+# 1    Bob    80       95
+
+# # After `melt()`
+# df_melted = pd.melt(df, id_vars=['Name'], var_name='Subject', value_name='Score')
+# print(df_melted)
+
+#     Name   Subject  Score
+# 0  Alice      Math     90
+# 1    Bob      Math     80
+# 2  Alice   Science     85
+# 3    Bob   Science     95
+
+# Key Points:
+# id_vars specifies columns to keep as-is:
+# These columns will remain in the melted DataFrame as they are. In your case, 'Name' is listed in id_vars, so it is preserved in the resulting DataFrame.
+# All other columns are melted:
+# Any column not explicitly mentioned in id_vars is automatically treated as a variable and melted into the new "variable" column (named Subject in your example).
+# Even if there are more columns:
+# It doesn't matter how many additional columns are in the DataFrame. As long as they are not listed in id_vars, they will be melted
+
+# 26. How do you stack the columns of a DataFrame into rows using Pandas?
+# 27. What does the `unstack()` function do in Pandas?
+# 28. How do you pivot a DataFrame to transform unique values of a column into column headers?
+# 29. What is the use of `crosstab()` in Pandas?
+
+# DATA EXPANSION
+# 30. How can you use the `expanding()` function in Pandas for cumulative operations?
+# 31. How do you perform interpolation to fill missing values in a DataFrame using `interpolate()`?
