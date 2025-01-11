@@ -93,3 +93,85 @@
 #  It returns a DataFrame/Series of the same shape, with True for non-null values and False for null values
 
 # df.notnull()
+
+
+# UNIQUE VALUES 
+
+# 11. How can you retrieve unique values from a Pandas Series using `unique()`?
+# The unique() function is used to retrieve all unique values from a Pandas Series.
+# It returns a NumPy array of unique values.
+
+# series.unique()
+# unique_values = data.unique()
+
+# 12. What function in Pandas can you use to count the number of unique values in a column (`nunique`)?
+# The nunique() function counts the number of unique values in a Series or DataFrame column.
+# It excludes NaN values by default
+
+# series.nunique(dropna=True)
+# df['column_name'].nunique(dropna=True)
+
+
+
+# Duplicate Handling
+# 13. How do you check for duplicate rows in a Pandas DataFrame using `duplicated()`?
+# The duplicated() function identifies duplicate rows in a DataFrame.
+# It returns a Series of True for duplicate rows and False for unique rows.
+
+# df.duplicated(subset=None, keep='first')
+# subset: Columns to consider for identifying duplicates (default is all columns).
+# keep: Options are:
+# 'first': Mark duplicates except the first occurrence (default).
+# 'last': Mark duplicates except the last occurrence.
+# False: Mark all duplicates as True.
+
+# 14. How can you remove duplicate rows from a DataFrame using `drop_duplicates()`?
+# The drop_duplicates() function removes duplicate rows from a DataFrame.
+
+# df.drop_duplicates(subset=None, keep='first', inplace=False)
+
+# subset: Columns to consider for identifying duplicates (default is all columns).
+# keep: Options are:
+# 'first': Keep the first occurrence of duplicates (default).
+# 'last': Keep the last occurrence.
+# False: Remove all duplicates.
+# inplace: If True, modifies the DataFrame in place.
+
+#  ROW OPERATIONS
+# 15. What function allows you to drop specific rows or columns in a DataFrame?
+# The drop() function allows you to remove specific rows or columns from a DataFrame.
+
+# df.drop(labels, axis=0, inplace=False)
+# labels: The row/column labels to drop.
+# axis:
+# 0 (default): Drops rows.
+# 1: Drops columns.
+# inplace: If True, modifies the DataFrame in place.
+
+
+# Value Checking
+# 16. How do you check if a value exists in a DataFrame or Series using `isin()`?
+
+# The isin() function is used to check if a value (or set of values) exists in a DataFrame or Series.
+# It returns a boolean DataFrame/Series where True indicates the presence of the value(s).
+
+# df.isin(values)
+# series.isin(values)
+
+# values: A single value, list, or set of values to check.
+
+# 17. How can you check if values in a Series or DataFrame fall within a specified range using `between()`?
+# The between() function checks if values in a Series or
+# DataFrame fall within a specified range (inclusive by default).
+
+# series.between(left, right, inclusive='both')
+
+# left: The lower bound of the range.
+# right: The upper bound of the range.
+# inclusive: Defines whether the bounds are inclusive. Options:
+# 'both': Include both bounds (default).
+# 'neither': Exclude both bounds.
+# 'left': Include only the lower bound.
+# 'right': Include only the upper bound.
+
+
