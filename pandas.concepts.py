@@ -457,4 +457,54 @@ The melt() function reshapes a DataFrame from wide format (columns represent var
 
 # DATA EXPANSION
 # 30. How can you use the `expanding()` function in Pandas for cumulative operations?
+
+# The expanding() function in Pandas provides cumulative operations over a DataFrame or Series. 
+# It computes rolling-like statistics but includes all data up to the current point for each calculation.
+    
+#     series_or_df.expanding(min_periods=1).agg(function)
+# min_periods: Minimum number of observations required to calculate a result (default is 1).
+# agg(function): Aggregation function (e.g., sum, mean, max).
+
+# import pandas as pd
+
+# data = {'A': [1, 2, 3, 4]}
+# df = pd.DataFrame(data)
+
+# # Apply cumulative sum using expanding()
+# df['Cumulative_Sum'] = df['A'].expanding().sum()
+
+# print(df)
+
+#    A  Cumulative_Sum
+# 0  1             1.0
+# 1  2             3.0
+# 2  3             6.0
+# 3  4            10.0
+
+
 # 31. How do you perform interpolation to fill missing values in a DataFrame using `interpolate()`?
+
+# The interpolate() function fills missing values (NaN) using various interpolation methods.
+
+# df.interpolate(method='linear', axis=0, inplace=False, limit=None)
+# method: Interpolation method (default is 'linear'; options include 'polynomial', 'pad', 'spline').
+# axis: Axis to interpolate along (0 for rows, 1 for columns).
+# inplace: If True, modifies the DataFrame in place.
+# limit: Maximum number of consecutive NaNs to fill.
+# data = {'A': [1, None, 3, None, 5]}
+# df = pd.DataFrame(data)
+
+# # Interpolate missing values
+# df_interpolated = df.interpolate()
+
+# print(df_interpolated)
+
+    #  A
+0  1.0
+1  2.0
+2  3.0
+3  4.0
+4  5.0
+
+
+# 32. What is the difference between join() and merge() in Pandas?
